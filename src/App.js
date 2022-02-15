@@ -3,7 +3,9 @@ import {initializeApp} from 'firebase/app';
 import {getStorage, ref, getDownloadURL} from 'firebase/storage';
 import './App.css';
 import Home from './components/Home';
+import GameLevel from './components/GameLevel';
 import React from 'react';
+import { Route, Routes, Link } from 'react-router-dom';
 
 const firebaseAppConfig = getFirebaseConfig();
 initializeApp(firebaseAppConfig);
@@ -20,9 +22,14 @@ function App() {
   return (
     <main>
       <header>
-        <h1>Where's Waldo</h1>
+        <Link to='/' >
+          <h1>Where's Waldo</h1>
+        </Link>
       </header>
-      <Home image={mainImg} />
+      <Routes>
+        <Route path='/' element={<Home image={mainImg} />} />
+        <Route path='play' element={<GameLevel image={mainImg} />} />
+      </Routes>
       <footer>
         <p>Created by Dylan King</p>
       </footer>
