@@ -1,12 +1,19 @@
 import React from "react";
 import DropMenu from "./DropMenu";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+    position: relative;
+    z-index: 0;
+   
+`
 
 const GameLevel = (props) => {
     return (
-        <div>
+        <StyledDiv>
             <img src={props.image} alt='' />
             <DropMenu />
-        </div>
+        </StyledDiv>
     )
 }
 

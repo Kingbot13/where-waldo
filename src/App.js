@@ -22,6 +22,8 @@ const StyledMain = styled.main`
 
 function App() {
   const [mainImg, setMainImg] = React.useState([]);
+  const [showMenu, setShowMenu] = React.useState(false);
+
   
   React.useEffect(() => {
     const storage = getStorage();
@@ -29,6 +31,10 @@ function App() {
     .then(url => setMainImg([url]))
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
+
+  const handleImgClick = (e) => {
+    setShowMenu(showMenu ? false : true);
+  }
   return (
     <StyledMain>
       <header>
