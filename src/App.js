@@ -6,9 +6,19 @@ import Home from './components/Home';
 import GameLevel from './components/GameLevel';
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const firebaseAppConfig = getFirebaseConfig();
 initializeApp(firebaseAppConfig);
+
+const StyledMain = styled.main`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  margin: auto;
+  justify-content: space-between;
+`
 
 function App() {
   const [mainImg, setMainImg] = React.useState([]);
@@ -20,7 +30,7 @@ function App() {
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
   return (
-    <main>
+    <StyledMain>
       <header>
         <Link to='/' >
           <h1>Where's Waldo</h1>
@@ -33,7 +43,7 @@ function App() {
       <footer>
         <p>Created by Dylan King</p>
       </footer>
-    </main>
+    </StyledMain>
   );
 }
 

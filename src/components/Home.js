@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { StyledImageContainer } from "./StyledImageContainer";
 
 const Home = (props) => {
     return(
         <Link to='play' >
-        <div>
+        <StyledImageContainer>
             <div>
                 <img src={props.image} alt='' />
             </div>
-        </div>
+        </StyledImageContainer>
         </Link>
     )
 }
