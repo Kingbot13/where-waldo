@@ -23,8 +23,12 @@ const StyledMain = styled.main`
 function App() {
   const [mainImg, setMainImg] = React.useState([]);
   const [showMenu, setShowMenu] = React.useState(false);
+  const [menuPosition, setMenuPosition] = React.useState({
+    top: 0,
+    left: 0
+  });
 
-  
+  // fetch main image
   React.useEffect(() => {
     const storage = getStorage();
     getDownloadURL(ref(storage, 'wheres-waldo-main.jpg'))
@@ -33,6 +37,11 @@ function App() {
   }, []);
 
   const handleImgClick = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    // mouse position
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMenuPosition({top: x, left: y});
     setShowMenu(showMenu ? false : true);
   }
   return (
@@ -44,7 +53,11 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home image={mainImg} />} />
-        <Route path='play' element={<GameLevel image={mainImg} />} />
+        <Route path='play' element={<GameLevel 
+          image={mainImg} 
+          imageClick={handleImgClick} 
+          show={showMenu} 
+          position={menuPosition} />} />
       </Routes>
       <footer>
         <p>Created by Dylan King</p>

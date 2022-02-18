@@ -5,10 +5,12 @@ const StyledDiv = styled.div`
     position: absolute;
     z-index: 1;
     background-color: #fff;
+    top: props.top;
+    left: props.left;
 `
-const DropMenu = () => {
+const DropMenu = ({top, left}) => {
     return (
-        <StyledDiv>
+        <StyledDiv top={top} left={left} >
             <ul>
                 <li>Waldo</li>
                 <li>Wilma</li>

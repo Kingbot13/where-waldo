@@ -8,11 +8,11 @@ const StyledDiv = styled.div`
    
 `
 
-const GameLevel = (props) => {
+const GameLevel = ({image, imageClick, position, show}) => {
     return (
         <StyledDiv>
-            <img src={props.image} alt='' />
-            <DropMenu />
+            <img src={image} alt='' onClick={(e)=> imageClick(e)} />
+            {show && <DropMenu top={position.top} left={position.left} />}
         </StyledDiv>
     )
 }
