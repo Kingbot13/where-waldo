@@ -4,14 +4,13 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
     position: relative;
-    z-index: 0;
    
 `
 
 const GameLevel = ({image, imageClick, position, show}) => {
     return (
-        <StyledDiv>
-            <img src={image} alt='' onClick={(e)=> imageClick(e)} />
+        <StyledDiv onClick={(e)=> imageClick(e)} >
+            <img src={image} alt=''  />
             {show && <DropMenu top={position.top} left={position.left} />}
         </StyledDiv>
     )

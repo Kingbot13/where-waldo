@@ -39,9 +39,9 @@ function App() {
   const handleImgClick = (e) => {
     const rect = e.target.getBoundingClientRect();
     // mouse position
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMenuPosition({top: x, left: y});
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
+    setMenuPosition({top: y, left: x});
     setShowMenu(showMenu ? false : true);
   }
   return (

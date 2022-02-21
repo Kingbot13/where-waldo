@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
     position: absolute;
-    z-index: 1;
     background-color: #fff;
-    top: props.top;
-    left: props.left;
+    top: ${props => props.top}px;
+    left: ${props => props.left}px;
 `
 const DropMenu = ({top, left}) => {
     return (
