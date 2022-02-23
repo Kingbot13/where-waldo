@@ -10,7 +10,13 @@ const StyledDiv = styled.div`
 const GameLevel = ({image, imageClick, position, show}) => {
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
-            <img src={image} alt=''  />
+            <img src={image} alt='' useMap="#waldo-map" />
+            <map name="waldo-map">
+                <area shape="rect" coords="546,832,590,864" alt="wilma" />
+                <area shape="rect" coords="1892,48,1947,112" alt="waldo" />
+                <area shape="rect" coords="1819,710,1865,793" alt="odlaw" />
+                <area shape="rect" coords="552,466,635,596" alt="wizard" />
+            </map>
             {show && <DropMenu top={position.top} left={position.left} />}
         </StyledDiv>
     )
