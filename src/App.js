@@ -27,6 +27,8 @@ function App() {
     top: 0,
     left: 0
   });
+  // store location of clicked area tag to compare to character locations
+  const [currentLocation, setCurrentLocation] = React.useState('');
 
   // fetch main image
   React.useEffect(() => {
@@ -35,7 +37,7 @@ function App() {
     .then(url => setMainImg([url]))
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
-
+  // toggle dropdown menu
   const handleImgClick = (e) => {
     const rect = e.target.getBoundingClientRect();
     // mouse position
@@ -44,6 +46,10 @@ function App() {
     setMenuPosition({top: y, left: x});
     setShowMenu(showMenu ? false : true);
   }
+  const storeLocation = (e) => {
+    setCurrentLocation(e.target.coords);
+  }
+
   return (
     <StyledMain>
       <header>
@@ -57,7 +63,9 @@ function App() {
           image={mainImg} 
           imageClick={handleImgClick} 
           show={showMenu} 
-          position={menuPosition} />} />
+          position={menuPosition} 
+          storeLocation={storeLocation}  
+          />} />
       </Routes>
       <footer>
         <p>Created by Dylan King</p>
