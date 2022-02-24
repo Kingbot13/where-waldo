@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
    
 `
 
-const GameLevel = ({image, imageClick, position, show, storeLocation}) => {
+const GameLevel = ({image, imageClick, position, show, storeLocation, validate}) => {
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
             <img src={image} alt='' useMap="#waldo-map" />
@@ -17,7 +17,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation}) => {
                 <area onClick={(e)=>storeLocation(e)} shape="rect" coords="1819,710,1865,793" alt="odlaw" />
                 <area onClick={(e)=>storeLocation(e)} shape="rect" coords="552,466,635,596" alt="wizard" />
             </map>
-            {show && <DropMenu top={position.top} left={position.left} />}
+            {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
         </StyledDiv>
     )
 }

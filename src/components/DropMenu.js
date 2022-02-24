@@ -7,14 +7,14 @@ const StyledDiv = styled.div`
     top: ${props => props.top}px;
     left: ${props => props.left}px;
 `
-const DropMenu = ({top, left}) => {
+const DropMenu = ({top, left, validate}) => {
     return (
         <StyledDiv top={top} left={left} >
             <ul>
-                <li>Waldo</li>
-                <li>Wilma</li>
-                <li>Wizard</li>
-                <li>Odlaw</li>
+                <li onClick={(e) => validate(e)}>Waldo</li>
+                <li onClick={(e) => validate(e)}>Wilma</li>
+                <li onClick={(e) => validate(e)}>Wizard</li>
+                <li onClick={(e) => validate(e)}>Odlaw</li>
             </ul>
         </StyledDiv>
     )

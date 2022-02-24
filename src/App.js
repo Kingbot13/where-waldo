@@ -41,24 +41,14 @@ function App() {
   }, []);
   // fetch character locations
   React.useEffect(() => {
-    if (characterLocation.length < 1) {
+    // if (characterLocation.length < 5 && characterLocation.length !== 4) {
 
-      async function getCharLocations() {
-        try{
-          const charLocations = await getDocs(collection(getFirestore(), 'locations'));
-          charLocations.forEach((doc) => {
-            setCharacterLocation([...characterLocation, {id: doc.id, data: doc.data()}]);
-          });
-    
-        } catch(err) {
-          console.error('failed to retrieve locations collection', err);
-        }
-      }
+     
       getCharLocations();
-      console.log(characterLocation);
-    }
+      console.log("characterLocation",characterLocation);
+    // }
 
-  },[characterLocation]);
+  }, []);
   // toggle dropdown menu
   const handleImgClick = (e) => {
     const rect = e.target.getBoundingClientRect();
@@ -73,11 +63,32 @@ function App() {
   }
 
   const validateSelection = (e) => {
-    return;
+    const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
+    console.log('charaterLocation', characterLocation);
+    console.log('selected character', selectedCharacter);
+
+    if (selectedCharacter[0].coords === currentLocation) {
+      alert('correct');
+    } else {
+      alert('incorrect');
+    }
   }
 
  
-
+  async function getCharLocations() {
+    const db = getFirestore();
+    const getLocations = [];
+    try{
+      const charLocations = await getDocs(collection(db, 'locations'));
+      charLocations.docs.forEach((doc) => {
+        getLocations.push(doc.data());
+      });
+      setCharacterLocation(getLocations);
+      // console.log(charLocations.docs);
+    } catch(err) {
+      console.error('failed to retrieve locations collection', err);
+    }
+  }
 
   return (
     <StyledMain>
@@ -93,7 +104,8 @@ function App() {
           imageClick={handleImgClick} 
           show={showMenu} 
           position={menuPosition} 
-          storeLocation={storeLocation}  
+          storeLocation={storeLocation}
+          validate={validateSelection}  
           />} />
       </Routes>
       <footer>
