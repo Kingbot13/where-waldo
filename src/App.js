@@ -1,6 +1,7 @@
 import getFirebaseConfig from './firebase-config';
 import {initializeApp} from 'firebase/app';
 import {getStorage, ref, getDownloadURL} from 'firebase/storage';
+import {collection, getDocs, getFirestore} from 'firebase/firestore';
 import './App.css';
 import Home from './components/Home';
 import GameLevel from './components/GameLevel';
@@ -29,6 +30,7 @@ function App() {
   });
   // store location of clicked area tag to compare to character locations
   const [currentLocation, setCurrentLocation] = React.useState('');
+  const [characterLocation, setCharacterLocation] = React.useState([]);
 
   // fetch main image
   React.useEffect(() => {
@@ -37,6 +39,26 @@ function App() {
     .then(url => setMainImg([url]))
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
+  // fetch character locations
+  React.useEffect(() => {
+    if (characterLocation.length < 1) {
+
+      async function getCharLocations() {
+        try{
+          const charLocations = await getDocs(collection(getFirestore(), 'locations'));
+          charLocations.forEach((doc) => {
+            setCharacterLocation([...characterLocation, {id: doc.id, data: doc.data()}]);
+          });
+    
+        } catch(err) {
+          console.error('failed to retrieve locations collection', err);
+        }
+      }
+      getCharLocations();
+      console.log(characterLocation);
+    }
+
+  },[characterLocation]);
   // toggle dropdown menu
   const handleImgClick = (e) => {
     const rect = e.target.getBoundingClientRect();
@@ -49,6 +71,13 @@ function App() {
   const storeLocation = (e) => {
     setCurrentLocation(e.target.coords);
   }
+
+  const validateSelection = (e) => {
+    return;
+  }
+
+ 
+
 
   return (
     <StyledMain>
