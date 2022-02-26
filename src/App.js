@@ -31,6 +31,8 @@ function App() {
   // store location of clicked area tag to compare to character locations
   const [currentLocation, setCurrentLocation] = React.useState('');
   const [characterLocation, setCharacterLocation] = React.useState([]);
+  // track number of correct selections made by player
+  const [correctSelections, setCorrectSelections] = React.useState(0);
 
   // fetch main image
   React.useEffect(() => {
@@ -41,13 +43,7 @@ function App() {
   }, []);
   // fetch character locations
   React.useEffect(() => {
-    // if (characterLocation.length < 5 && characterLocation.length !== 4) {
-
-     
       getCharLocations();
-      console.log("characterLocation",characterLocation);
-    // }
-
   }, []);
   // toggle dropdown menu
   const handleImgClick = (e) => {
@@ -64,11 +60,10 @@ function App() {
 
   const validateSelection = (e) => {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
-    console.log('charaterLocation', characterLocation);
-    console.log('selected character', selectedCharacter);
 
     if (selectedCharacter[0].coords === currentLocation) {
       alert('correct');
+      setCorrectSelections(prev => prev + 1);
     } else {
       alert('incorrect');
     }
@@ -84,7 +79,6 @@ function App() {
         getLocations.push(doc.data());
       });
       setCharacterLocation(getLocations);
-      // console.log(charLocations.docs);
     } catch(err) {
       console.error('failed to retrieve locations collection', err);
     }
@@ -106,6 +100,7 @@ function App() {
           position={menuPosition} 
           storeLocation={storeLocation}
           validate={validateSelection}  
+          correctSelections={correctSelections}
           />} />
       </Routes>
       <footer>

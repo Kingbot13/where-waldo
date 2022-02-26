@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
    
 `
 
-const GameLevel = ({image, imageClick, position, show, storeLocation, validate}) => {
+const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections}) => {
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
 
@@ -21,7 +21,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate})
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
             }, 1000);
-        } else if (showButton && seconds !== 0) {
+        } else if (correctSelections === 4 || (showButton && seconds !== 0)) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
