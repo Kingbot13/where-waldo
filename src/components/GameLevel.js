@@ -8,6 +8,25 @@ const StyledDiv = styled.div`
 `
 
 const GameLevel = ({image, imageClick, position, show, storeLocation, validate}) => {
+    const [showButton, setShowButton] = React.useState(true);
+    const [seconds, setSeconds] = React.useState(0);
+
+    const buttonClick = () => {
+        setShowButton(!showButton);
+    }
+    // keep track of player's time
+    React.useEffect(() => {
+        let interval;
+        if (!showButton) {
+            interval = setInterval(() => {
+                setSeconds(seconds => seconds + 1);
+            }, 1000);
+        } else if (showButton && seconds !== 0) {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [showButton, seconds]);
+
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
             <img src={image} alt='' useMap="#waldo-map" />
@@ -18,6 +37,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate})
                 <area onClick={(e)=>storeLocation(e)} shape="rect" coords="552,466,635,596" alt="wizard" />
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
+            {showButton && <button onClick={buttonClick}>Start</button>}
         </StyledDiv>
     )
 }
