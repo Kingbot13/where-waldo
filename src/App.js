@@ -62,8 +62,9 @@ function App() {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
 
     if (selectedCharacter[0].coords === currentLocation) {
-      alert('correct');
       setCorrectSelections(prev => prev + 1);
+      console.log(correctSelections);
+      alert('correct');
     } else {
       alert('incorrect');
     }

@@ -8,6 +8,13 @@ const StyledDiv = styled.div`
    
 `
 
+const StartButton = styled.button`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections}) => {
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
@@ -26,7 +33,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [showButton, seconds]);
+    }, [showButton, seconds, correctSelections]);
 
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
@@ -38,7 +45,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
                 <area onClick={(e)=>storeLocation(e)} shape="rect" coords="552,466,635,596" alt="wizard" />
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
-            {showButton && <button onClick={buttonClick}>Start</button>}
+            {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
             {correctSelections === 4 && <Score time={seconds} />}
         </StyledDiv>
     )
