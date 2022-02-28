@@ -1,5 +1,6 @@
 import React from "react";
 import DropMenu from "./DropMenu";
+import Score from "./Score";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -38,6 +39,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <button onClick={buttonClick}>Start</button>}
+            {correctSelections === 4 && <Score time={seconds} />}
         </StyledDiv>
     )
 }
