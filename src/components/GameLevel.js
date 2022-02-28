@@ -18,6 +18,7 @@ const StartButton = styled.button`
 const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections}) => {
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
+    const [showScore, setShowScore] = React.useState(false);
 
     const buttonClick = () => {
         setShowButton(!showButton);
@@ -25,11 +26,12 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     // keep track of player's time
     React.useEffect(() => {
         let interval;
-        if (!showButton) {
+        if (!showButton && correctSelections < 4) {
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
             }, 1000);
         } else if (correctSelections === 4 || (showButton && seconds !== 0)) {
+            setShowScore(true);
             clearInterval(interval);
         }
         return () => clearInterval(interval);
@@ -46,7 +48,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
-            {correctSelections === 4 && <Score time={seconds} />}
+            {showScore && <Score time={seconds} />}
         </StyledDiv>
     )
 }

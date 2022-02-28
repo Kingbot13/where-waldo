@@ -64,7 +64,7 @@ function App() {
     if (selectedCharacter[0].coords === currentLocation) {
       setCorrectSelections(prev => prev + 1);
       console.log(correctSelections);
-      alert('correct');
+      console.log('correct');
     } else {
       alert('incorrect');
     }
