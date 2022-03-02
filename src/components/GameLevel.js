@@ -2,7 +2,7 @@ import React from "react";
 import DropMenu from "./DropMenu";
 import Score from "./Score";
 import styled from "styled-components";
-import {collection, addDoc, getFirestore} from "firebase/firestore";
+import {collection, addDoc, getFirestore, getDocs} from "firebase/firestore";
 
 const StyledDiv = styled.div`
     position: relative;
@@ -44,6 +44,22 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
         }
         return () => clearInterval(interval);
     }, [showButton, seconds, correctSelections]);
+    // get leaderboard from firestore
+    React.useEffect(() => {
+        getLeaderboard();
+    },[]);
+
+    
+
+    const getLeaderboard = async () => {
+        const db = getFirestore();
+        const dataArray = [];
+        const data = await getDocs(collection(db, 'leaderboard'));
+        if (data) {
+            data.docs.forEach(doc => dataArray.push({id: doc.id, data: doc.data()}));
+            setLeaderboard(dataArray);
+        };
+    };
 
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
