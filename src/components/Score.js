@@ -11,11 +11,11 @@ const StyledDiv = styled.div`
 
 `
 
-const Score = ({time, handleChange, value, addHighScore}) => {
+const Score = ({time, handleChange, value, submitScore}) => {
     return (
         <StyledDiv>
             Time: {time} seconds!
-            <Form onChange={handleChange} value={value} onClick={addHighScore} />
+            <Form onChange={handleChange} value={value} onClick={submitScore} />
         </StyledDiv>
     )
 }

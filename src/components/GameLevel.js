@@ -21,14 +21,14 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     const [seconds, setSeconds] = React.useState(0);
     const [showScore, setShowScore] = React.useState(false);
     const [leaderboard, setLeaderboard] = React.useState([]);
-    const [value, setValue] = React.useState({value: ''});
-    const [highScore, setHighScore] = React.useState({});
+    const [value, setValue] = React.useState('');
+    // const [highScore, setHighScore] = React.useState({});
 
     const buttonClick = () => {
         setShowButton(!showButton);
     }
     const handleChange = (e) => {
-        setValue({value: e.target.value});
+        setValue(e.target.value);
     }
 
     // keep track of player's time
@@ -88,7 +88,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
-            {showScore && <Score time={seconds} handleChange={handleChange} value={value} addHighScore={addHighScore} />}
+            {showScore && <Score time={seconds} handleChange={handleChange} value={value} submitScore={submitScore} />}
         </StyledDiv>
     )
 }
