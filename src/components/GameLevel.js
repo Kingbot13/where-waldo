@@ -49,7 +49,23 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
         getLeaderboard();
     },[]);
 
-    
+    // add highscore to leaderboard collection in database
+    const submitScore = (e) => {
+        e.preventDefault();
+        addHighScore();
+    }
+
+    const addHighScore = async () => {
+        const docRef = await addDoc(collection(getFirestore(), 'leaderboard'), {
+            name: value,
+            time: seconds
+        });
+        try {
+            console.log(docRef.id);
+        } catch(err) {
+            console.error('could not save data', err);
+        }
+    }
 
     const getLeaderboard = async () => {
         const db = getFirestore();
