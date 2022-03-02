@@ -88,7 +88,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
-            {showScore && <Score time={seconds} handleChange={handleChange} value={value} />}
+            {showScore && <Score time={seconds} handleChange={handleChange} value={value} addHighScore={addHighScore} />}
         </StyledDiv>
     )
 }
