@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Form from "./Form";
 
 const StyledDiv = styled.div`
     position: absolute;
@@ -10,10 +11,11 @@ const StyledDiv = styled.div`
 
 `
 
-const Score = ({time}) => {
+const Score = ({time, handleChange, value}) => {
     return (
         <StyledDiv>
             Time: {time} seconds!
+            <Form onChange={handleChange} value={value} />
         </StyledDiv>
     )
 }

@@ -2,6 +2,7 @@ import React from "react";
 import DropMenu from "./DropMenu";
 import Score from "./Score";
 import styled from "styled-components";
+import {collection, addDoc, getFirestore} from "firebase/firestore";
 
 const StyledDiv = styled.div`
     position: relative;
@@ -19,10 +20,17 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
     const [showScore, setShowScore] = React.useState(false);
+    const [leaderboard, setLeaderboard] = React.useState([]);
+    const [value, setValue] = React.useState({value: ''});
+    const [highScore, setHighScore] = React.useState({});
 
     const buttonClick = () => {
         setShowButton(!showButton);
     }
+    const handleChange = (e) => {
+        setValue({value: e.target.value});
+    }
+
     // keep track of player's time
     React.useEffect(() => {
         let interval;
@@ -48,7 +56,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
-            {showScore && <Score time={seconds} />}
+            {showScore && <Score time={seconds} handleChange={handleChange} value={value} />}
         </StyledDiv>
     )
 }

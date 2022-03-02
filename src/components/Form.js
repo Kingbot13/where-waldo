@@ -1,10 +1,10 @@
 import React from "react";
 
-const Form = () => {
+const Form = ({onChange, value}) => {
     return (
         <form >
             <label htmlFor="name">Name</label>
-            <input name="name" id="name"/>
+            <input name="name" id="name" onChange={(e) => onChange(e)} value={value} />
             <button>Submit</button>
         </form>
     )
