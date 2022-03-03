@@ -3,8 +3,7 @@ import Card from "./Card";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-    background-color: #fff;
-    position: absolute;
+
     
 `
 

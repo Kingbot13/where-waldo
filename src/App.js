@@ -33,6 +33,7 @@ function App() {
   const [characterLocation, setCharacterLocation] = React.useState([]);
   // track number of correct selections made by player
   const [correctSelections, setCorrectSelections] = React.useState(0);
+  const [isGameStart, setIsGameStart] = React.useState(false);
 
   // fetch main image
   React.useEffect(() => {
@@ -45,14 +46,19 @@ function App() {
   React.useEffect(() => {
       getCharLocations();
   }, []);
-  // toggle dropdown menu
+  // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    // mouse position
-    const x = Math.round(e.clientX - rect.left);
-    const y = Math.round(e.clientY - rect.top);
-    setMenuPosition({top: y, left: x});
-    setShowMenu(showMenu ? false : true);
+    if (isGameStart) {
+      const rect = e.target.getBoundingClientRect();
+      // mouse position
+      const x = Math.round(e.clientX - rect.left);
+      const y = Math.round(e.clientY - rect.top);
+      setMenuPosition({top: y, left: x});
+      setShowMenu(showMenu ? false : true);
+
+    } else {
+      setIsGameStart(true);
+    }
   }
   const storeLocation = (e) => {
     setCurrentLocation(e.target.coords);
