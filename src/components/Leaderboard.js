@@ -8,14 +8,15 @@ const StyledDiv = styled.div`
 `
 
 const Leaderboard = ({highScores}) => {
+    highScores.sort((a, b) => a.data.time - b.data.time);
     const cards = highScores.map((item) => {
-        return <Card name={item.data.name} time={item.data.time} key={item.id} />
-    })
+        return <li><Card name={item.data.name} time={item.data.time} key={item.id} /></li>
+    });
     return (
-        <div>
+        <ol>
             {cards}
-        </div>
-    )
+        </ol>
+    );
 }
 
 export default Leaderboard;
