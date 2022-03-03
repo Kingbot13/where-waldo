@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Form from "./Form";
 
 const StyledDiv = styled.div`
-    position: absolute;
+    /* position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background-color: #fff;
 
 `

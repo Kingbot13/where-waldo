@@ -1,12 +1,21 @@
 import React from "react";
 import DropMenu from "./DropMenu";
 import Score from "./Score";
+import Leaderboard from './Leaderboard';
 import styled from "styled-components";
 import {collection, addDoc, getFirestore, getDocs} from "firebase/firestore";
 
 const StyledDiv = styled.div`
     position: relative;
    
+`
+
+const ScoreContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
 `
 
 const StartButton = styled.button`
@@ -22,6 +31,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     const [showScore, setShowScore] = React.useState(false);
     const [leaderboard, setLeaderboard] = React.useState([]);
     const [value, setValue] = React.useState('');
+    const [showLeaderboard, setShowLeaderboard] = React.useState(false);
     // const [highScore, setHighScore] = React.useState({});
 
     const buttonClick = () => {
@@ -53,6 +63,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     const submitScore = (e) => {
         e.preventDefault();
         addHighScore();
+        setShowLeaderboard(true);
     }
 
     const addHighScore = async () => {
@@ -88,7 +99,12 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
-            {showScore && <Score time={seconds} handleChange={handleChange} value={value} submitScore={submitScore} />}
+            
+            {showScore && 
+            <ScoreContainer>
+                <Score time={seconds} handleChange={handleChange} value={value} submitScore={submitScore} />
+                {showLeaderboard && <Leaderboard highScores={leaderboard} />}
+            </ScoreContainer>}
         </StyledDiv>
     )
 }

@@ -1,5 +1,12 @@
 import React from "react";
 import Card from "./Card";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+    background-color: #fff;
+    position: absolute;
+    
+`
 
 const Leaderboard = ({highScores}) => {
     const cards = highScores.map((item) => {
