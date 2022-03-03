@@ -2,10 +2,7 @@ import React from "react";
 import Card from "./Card";
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
 
-    
-`
 
 const Leaderboard = ({highScores}) => {
     highScores.sort((a, b) => a.data.time - b.data.time);
