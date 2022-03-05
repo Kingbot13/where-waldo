@@ -23,6 +23,17 @@ const StartButton = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: #fff;
+    height: 4rem;
+    width: 8rem;
+    border-radius: 50px;
+    font-size: 25px;
+    &:hover {
+        height: 4.5rem;
+        width: 9rem;
+        font-size: 30px;
+    }
+    transition: height 0.5s, width 0.5s, font-size 0.5s;
 `
 
 const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections}) => {
