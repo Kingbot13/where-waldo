@@ -63,7 +63,21 @@ function App() {
   const storeLocation = (e) => {
     setCurrentLocation(e.target.coords);
   }
-
+  const setCoords = () => {
+    const image = document.querySelector('img');
+    const imageHeight = image.height;
+    const imageWidth = image.width;
+    characterLocation.map((item) => {
+      const arr = [];
+      for (let i = 0; i < item.coordPercentage.length; i++) {
+        i % 2 === 0 ?
+        arr.push(item.coordPercentage[i] * imageWidth)
+        :
+        arr.push(item.coordPercentage[i] * imageHeight);
+      }
+      
+    })
+  }
   const validateSelection = (e) => {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
 
