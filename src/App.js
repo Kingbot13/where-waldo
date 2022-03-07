@@ -45,6 +45,7 @@ function App() {
   // fetch character locations
   React.useEffect(() => {
       getCharLocations();
+      setCoords();
   }, []);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
@@ -63,6 +64,7 @@ function App() {
   const storeLocation = (e) => {
     setCurrentLocation(e.target.coords);
   }
+  // dynamically set coordinates to use with area elements
   const setCoords = () => {
     const image = document.querySelector('img');
     const imageHeight = image.height;
@@ -75,7 +77,10 @@ function App() {
         :
         arr.push(item.coordPercentage[i] * imageHeight);
       }
-      
+      const index = characterLocation.findIndex(a => item.name === a.name);
+      const newCharacterLocation = [...characterLocation];
+      newCharacterLocation[index].coords = arr.join();
+      return setCharacterLocation(newCharacterLocation);
     })
   }
   const validateSelection = (e) => {
@@ -122,6 +127,7 @@ function App() {
           storeLocation={storeLocation}
           validate={validateSelection}  
           correctSelections={correctSelections}
+          characterLocation={characterLocation}
           />} />
       </Routes>
       <footer>
