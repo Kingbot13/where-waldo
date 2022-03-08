@@ -2,6 +2,7 @@ import React from "react";
 import DropMenu from "./DropMenu";
 import Score from "./Score";
 import Leaderboard from './Leaderboard';
+import GameMsg from "./GameMsg";
 import styled from "styled-components";
 import {collection, addDoc, getFirestore, getDocs} from "firebase/firestore";
 
@@ -110,6 +111,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
 
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
+            <GameMsg />
             <MainImg src={image} alt='' useMap="#waldo-map" />
             <map name="waldo-map">
                 {/* <area onClick={(e)=>storeLocation(e)} shape="rect" coords="546,832,590,864" alt="wilma" />
