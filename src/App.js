@@ -81,7 +81,7 @@ function App() {
       const newCharacterLocation = [...characterLocation];
       newCharacterLocation[index].coords = arr.join();
       return setCharacterLocation(newCharacterLocation);
-    })
+    });
   }
   const validateSelection = (e) => {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
