@@ -49,10 +49,8 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     const [leaderboard, setLeaderboard] = React.useState([]);
     const [value, setValue] = React.useState('');
     const [showLeaderboard, setShowLeaderboard] = React.useState(false);
+    const [copyCharacterLocations, setCopyCharacterLocations] = React.useState([]);
 
-    const areas = characterLocation.map((item) => {
-        return <area key={item.name} onClick={(e) => storeLocation(e)} coords={item.coords} shape='rect' alt={item.name} />
-    });
 
     const buttonClick = () => {
         setShowButton(!showButton);
@@ -78,6 +76,18 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     React.useEffect(() => {
         getLeaderboard();
     },[]);
+
+    React.useEffect(() => {
+        setCopyCharacterLocations([...characterLocation]);
+        console.log(copyCharacterLocations);
+        
+    },[characterLocation]);
+
+    const areas = copyCharacterLocations.map((item) => {
+        console.log(item);
+        return <area key={item.name} onClick={(e) => storeLocation(e)} coords={item.coords} shape='rect' alt={item.name} />
+    });
+
 
     // add highscore to leaderboard collection in database
     const submitScore = (e) => {
@@ -114,10 +124,6 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
             <GameMsg show={showMsg} isCorrect={isCorrect} />
             <MainImg src={image} alt='' useMap="#waldo-map" />
             <map name="waldo-map">
-                {/* <area onClick={(e)=>storeLocation(e)} shape="rect" coords="546,832,590,864" alt="wilma" />
-                <area onClick={(e)=>storeLocation(e)} shape="rect" coords="1892,48,1947,112" alt="waldo" />
-                <area onClick={(e)=>storeLocation(e)} shape="rect" coords="1819,710,1865,793" alt="odlaw" />
-                <area onClick={(e)=>storeLocation(e)} shape="rect" coords="552,466,635,596" alt="wizard" /> */}
                 {areas}
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}

@@ -45,10 +45,38 @@ function App() {
     .then(url => setMainImg([url]))
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
+  // dynamically set coordinates to use with area elements
+  const setCoords = () => {
+    const image = document.querySelector('img');
+    const imageHeight = image.height;
+    const imageWidth = image.width;
+    characterLocation.map((item) => {
+      const arr = [];
+      for (let i = 0; i < item.coordPercentage.length; i++) {
+        i % 2 === 0 ?
+        arr.push(Math.round(item.coordPercentage[i] * imageWidth))
+        :
+        arr.push(Math.round(item.coordPercentage[i] * imageHeight));
+      }
+      const index = characterLocation.findIndex(a => item.name === a.name);
+      const newCharacterLocation = [...characterLocation];
+      newCharacterLocation[index].coords = arr.join();
+      console.log(newCharacterLocation);
+      return setCharacterLocation(newCharacterLocation);
+    });
+  }
+
   // fetch character locations
   React.useEffect(() => {
       getCharLocations();
-      setCoords();
+
+    // console.log(characterLocation);
+
+  }, []);
+
+  React.useEffect(() => {
+    setCoords();
+    console.log(characterLocation);
   }, []);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
@@ -66,25 +94,6 @@ function App() {
   }
   const storeLocation = (e) => {
     setCurrentLocation(e.target.coords);
-  }
-  // dynamically set coordinates to use with area elements
-  const setCoords = () => {
-    const image = document.querySelector('img');
-    const imageHeight = image.height;
-    const imageWidth = image.width;
-    characterLocation.map((item) => {
-      const arr = [];
-      for (let i = 0; i < item.coordPercentage.length; i++) {
-        i % 2 === 0 ?
-        arr.push(item.coordPercentage[i] * imageWidth)
-        :
-        arr.push(item.coordPercentage[i] * imageHeight);
-      }
-      const index = characterLocation.findIndex(a => item.name === a.name);
-      const newCharacterLocation = [...characterLocation];
-      newCharacterLocation[index].coords = arr.join();
-      return setCharacterLocation(newCharacterLocation);
-    });
   }
   const validateSelection = (e) => {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
