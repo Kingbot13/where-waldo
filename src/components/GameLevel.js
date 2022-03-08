@@ -38,11 +38,11 @@ const StartButton = styled.button`
 `
 
 const MainImg = styled.img`
-    width: 100vw;
+    width: 95vw;
     height: auto;
 `
 
-const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections, characterLocation}) => {
+const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections, characterLocation, showMsg, isCorrect}) => {
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
     const [showScore, setShowScore] = React.useState(false);
@@ -111,7 +111,7 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
 
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
-            <GameMsg />
+            <GameMsg show={showMsg} isCorrect={isCorrect} />
             <MainImg src={image} alt='' useMap="#waldo-map" />
             <map name="waldo-map">
                 {/* <area onClick={(e)=>storeLocation(e)} shape="rect" coords="546,832,590,864" alt="wilma" />

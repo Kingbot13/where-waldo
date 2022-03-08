@@ -34,6 +34,9 @@ function App() {
   // track number of correct selections made by player
   const [correctSelections, setCorrectSelections] = React.useState(0);
   const [isGameStart, setIsGameStart] = React.useState(false);
+  // to use to toggle character selection message
+  const [showMsg, setShowMsg] = React.useState(false);
+  const [isCorrect, setIsCorrect] = React.useState(true);
 
   // fetch main image
   React.useEffect(() => {
@@ -87,11 +90,14 @@ function App() {
     const selectedCharacter = characterLocation.filter(item => item.name === e.target.textContent.toLowerCase());
 
     if (selectedCharacter[0].coords === currentLocation) {
+      setIsCorrect(true);
+      toggleGameMsg();
       setCorrectSelections(prev => prev + 1);
       console.log(correctSelections);
       console.log('correct');
     } else {
-      alert('incorrect');
+      setIsCorrect(false);
+      toggleGameMsg();
     }
   }
 
@@ -108,6 +114,12 @@ function App() {
     } catch(err) {
       console.error('failed to retrieve locations collection', err);
     }
+  }
+
+  const toggleGameMsg = () => {
+    setShowMsg(!showMsg ? true : false);
+
+    setTimeout(() => setShowMsg(!showMsg ? true : false), 1000);
   }
 
   return (
@@ -128,6 +140,8 @@ function App() {
           validate={validateSelection}  
           correctSelections={correctSelections}
           characterLocation={characterLocation}
+          showMsg={showMsg}
+          isCorrect={isCorrect}
           />} />
       </Routes>
       <footer>

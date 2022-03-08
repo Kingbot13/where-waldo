@@ -12,12 +12,13 @@ const StyledDiv = styled.div`
     width: auto;
     height: auto;
     padding: 1rem 2rem;
+    visibility: ${props => props.show ? "visable" : "hidden"};
 `
 
-const GameMsg = () => {
+const GameMsg = ({show, isCorrect}) => {
     return (
-        <StyledDiv>
-            Placeholder
+        <StyledDiv show={show} >
+            {isCorrect ? "Correct!" : "Wrong, try again!"}
         </StyledDiv>
     );
 }
