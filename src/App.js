@@ -50,6 +50,7 @@ function App() {
     const image = document.querySelector('img');
     const imageHeight = image.height;
     const imageWidth = image.width;
+    console.log("img height", imageHeight, "img width", imageWidth);
     characterLocation.map((item) => {
       const arr = [];
       for (let i = 0; i < item.coordPercentage.length; i++) {
@@ -58,8 +59,8 @@ function App() {
         :
         arr.push(Math.round(item.coordPercentage[i] * imageHeight));
       }
-      const index = characterLocation.findIndex(a => item.name === a.name);
       const newCharacterLocation = [...characterLocation];
+      const index = characterLocation.findIndex(a => item.name === a.name);
       newCharacterLocation[index].coords = arr.join();
       console.log(newCharacterLocation);
       return setCharacterLocation(newCharacterLocation);
@@ -69,6 +70,7 @@ function App() {
   // fetch character locations
   React.useEffect(() => {
       getCharLocations();
+      
 
     // console.log(characterLocation);
 
@@ -77,7 +79,7 @@ function App() {
   React.useEffect(() => {
     setCoords();
     console.log(characterLocation);
-  }, []);
+  }, [mainImg]);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
     if (isGameStart) {
