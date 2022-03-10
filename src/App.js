@@ -70,15 +70,11 @@ function App() {
   // fetch character locations
   React.useEffect(() => {
       getCharLocations();
-      
-
-    // console.log(characterLocation);
-
   }, []);
 
   React.useEffect(() => {
     setCoords();
-    console.log(characterLocation);
+    // console.log(characterLocation);
   }, [mainImg]);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
@@ -128,9 +124,9 @@ function App() {
   }
 
   const toggleGameMsg = () => {
-    setShowMsg(!showMsg ? true : false);
+    setShowMsg(true);
 
-    setTimeout(() => setShowMsg(!showMsg ? true : false), 1000);
+    setTimeout(() => setShowMsg(false), 2000);
   }
 
   return (
