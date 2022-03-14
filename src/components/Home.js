@@ -8,18 +8,29 @@ const StyledDiv = styled.div`
     overflow: hidden;
 `
 
+const BorderDiv = styled.div`
+    height: 24%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`
+
 const Home = (props) => {
     return(
-        <Link to='play' >
+        <StyledLink to='play' >
         <StyledImageContainer>
             <StyledDiv>
                 <img src={props.image} alt='' />
             </StyledDiv>
-            <div>
+            <BorderDiv>
                 Play!
-            </div>
+            </BorderDiv>
         </StyledImageContainer>
-        </Link>
+        </StyledLink>
     )
 }
 

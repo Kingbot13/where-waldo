@@ -27,14 +27,17 @@ const StartButton = styled.button`
     background-color: #fff;
     height: 4rem;
     width: 8rem;
-    border-radius: 50px;
+    border: 2px solid #cacaca;
+    /* border-radius: 50px; */
     font-size: 25px;
     &:hover {
-        height: 4.5rem;
+        border-color: red;
+        color: red;
+        /* height: 4.5rem;
         width: 9rem;
-        font-size: 30px;
+        font-size: 30px; */
     }
-    transition: height 0.5s, width 0.5s, font-size 0.5s;
+    transition: border-color 1s, color 1s;
 `
 
 const MainImg = styled.img`
