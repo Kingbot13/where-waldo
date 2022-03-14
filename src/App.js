@@ -33,6 +33,10 @@ const StyledLink = styled(Link)`
 const StyledHeader = styled.header`
   box-shadow: 0 1px 15px 0 #cacaca;
   width: 100vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 function App() {
