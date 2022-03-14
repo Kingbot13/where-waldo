@@ -21,6 +21,20 @@ const StyledMain = styled.main`
   justify-content: space-between;
 `
 
+const StyledH1 = styled.h1`
+  text-decoration: none;
+  color: red;
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
+const StyledHeader = styled.header`
+  box-shadow: 0 1px 15px 0 #cacaca;
+  width: 100vw;
+`
+
 function App() {
   const [mainImg, setMainImg] = React.useState([]);
   const [showMenu, setShowMenu] = React.useState(false);
@@ -100,8 +114,7 @@ function App() {
       setIsCorrect(true);
       toggleGameMsg();
       setCorrectSelections(prev => prev + 1);
-      console.log(correctSelections);
-      console.log('correct');
+
     } else {
       setIsCorrect(false);
       toggleGameMsg();
@@ -131,11 +144,11 @@ function App() {
 
   return (
     <StyledMain>
-      <header>
-        <Link to='/' >
-          <h1>Where's Waldo</h1>
-        </Link>
-      </header>
+      <StyledHeader>
+        <StyledLink to='/' >
+          <StyledH1>Where's Waldo?</StyledH1>
+        </StyledLink>
+      </StyledHeader>
       <Routes>
         <Route path='/' element={<Home image={mainImg} />} />
         <Route path='play' element={<GameLevel 
