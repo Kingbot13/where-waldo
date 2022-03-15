@@ -55,6 +55,10 @@ function App() {
   // to use to toggle character selection message
   const [showMsg, setShowMsg] = React.useState(false);
   const [isCorrect, setIsCorrect] = React.useState(true);
+  const [imgDimensions, setImageDimensions] = React.useState({
+    height: 0,
+    width: 0,
+  });
 
   // fetch main image
   React.useEffect(() => {
@@ -63,19 +67,46 @@ function App() {
     .then(url => setMainImg([url]))
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
+
+  React.useEffect(() => {
+    const getImgSize = (e) => {
+      const image = document.querySelector('img');
+      console.log(image);
+      setImageDimensions({
+        height: image.clientHeight,
+        width: image.clientWidth,
+      });
+
+    }
+    window.addEventListener('load', getImgSize);
+    return () => window.removeEventListener('load', getImgSize);
+  }, []);
+
+  React.useEffect(() => {
+    const image = document.querySelector('img');
+    const handleImgResize = () => {
+      setImageDimensions({
+        height: image.height,
+        width: image.width,
+      });
+    }
+    window.addEventListener('resize', handleImgResize);
+
+    return () => window.removeEventListener('resize', handleImgResize);
+  })
   // dynamically set coordinates to use with area elements
   const setCoords = () => {
-    const image = document.querySelector('img');
-    const imageHeight = image.height;
-    const imageWidth = image.width;
-    console.log("img height", imageHeight, "img width", imageWidth);
+    // const image = document.querySelector('img');
+    // const imageHeight = image.height;
+    // const imageWidth = image.width;
+    console.log("img height", imgDimensions.height, "img width", imgDimensions.width);
     characterLocation.map((item) => {
       const arr = [];
       for (let i = 0; i < item.coordPercentage.length; i++) {
         i % 2 === 0 ?
-        arr.push(Math.round(item.coordPercentage[i] * imageWidth))
+        arr.push(Math.round(item.coordPercentage[i] * imgDimensions.width))
         :
-        arr.push(Math.round(item.coordPercentage[i] * imageHeight));
+        arr.push(Math.round(item.coordPercentage[i] * imgDimensions.height));
       }
       const newCharacterLocation = [...characterLocation];
       const index = characterLocation.findIndex(a => item.name === a.name);
@@ -93,7 +124,7 @@ function App() {
   React.useEffect(() => {
     setCoords();
     // console.log(characterLocation);
-  }, [mainImg]);
+  }, [mainImg, imgDimensions]);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
     if (isGameStart) {
