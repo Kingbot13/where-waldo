@@ -68,19 +68,12 @@ function App() {
     .catch(error => console.error('image not retrieved from database', error));
   }, []);
 
-  React.useEffect(() => {
-    const getImgSize = (e) => {
-      const image = document.querySelector('img');
-      console.log(image);
-      setImageDimensions({
-        height: image.clientHeight,
-        width: image.clientWidth,
-      });
-
-    }
-    window.addEventListener('load', getImgSize);
-    return () => window.removeEventListener('load', getImgSize);
-  }, []);
+  const getImgSize = (e) => {
+    setImageDimensions({
+      height: e.target.height,
+      width: e.target.width,
+    });
+  }
 
   React.useEffect(() => {
     const image = document.querySelector('img');
@@ -96,9 +89,6 @@ function App() {
   })
   // dynamically set coordinates to use with area elements
   const setCoords = () => {
-    // const image = document.querySelector('img');
-    // const imageHeight = image.height;
-    // const imageWidth = image.width;
     console.log("img height", imgDimensions.height, "img width", imgDimensions.width);
     characterLocation.map((item) => {
       const arr = [];
@@ -197,6 +187,7 @@ function App() {
           characterLocation={characterLocation}
           showMsg={showMsg}
           isCorrect={isCorrect}
+          getImgSize={getImgSize}
           />} />
       </Routes>
       <footer>

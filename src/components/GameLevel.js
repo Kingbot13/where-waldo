@@ -5,6 +5,7 @@ import Leaderboard from './Leaderboard';
 import GameMsg from "./GameMsg";
 import styled from "styled-components";
 import {collection, addDoc, getFirestore, getDocs} from "firebase/firestore";
+import { Button } from "./Button";
 
 const StyledDiv = styled.div`
     position: relative;
@@ -19,33 +20,25 @@ const ScoreContainer = styled.div`
     background-color: #fff;
 `
 
-const StartButton = styled.button`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    height: 4rem;
-    width: 8rem;
-    border: 2px solid #cacaca;
-    /* border-radius: 50px; */
-    font-size: 25px;
-    &:hover {
-        border-color: red;
-        color: red;
-        /* height: 4.5rem;
-        width: 9rem;
-        font-size: 30px; */
-    }
-    transition: border-color 1s, color 1s;
-`
 
 const MainImg = styled.img`
     width: 95vw;
     height: auto;
 `
 
-const GameLevel = ({image, imageClick, position, show, storeLocation, validate, correctSelections, characterLocation, showMsg, isCorrect}) => {
+const GameLevel = ({
+    image, 
+    imageClick, 
+    position, 
+    show, 
+    storeLocation, 
+    validate, 
+    correctSelections, 
+    characterLocation, 
+    showMsg, 
+    isCorrect,
+    getImgSize
+}) => {
     const [showButton, setShowButton] = React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
     const [showScore, setShowScore] = React.useState(false);
@@ -125,12 +118,12 @@ const GameLevel = ({image, imageClick, position, show, storeLocation, validate, 
     return (
         <StyledDiv onClick={(e)=> imageClick(e)} >
             <GameMsg show={showMsg} isCorrect={isCorrect} />
-            <MainImg src={image} alt='' useMap="#waldo-map" />
+            <MainImg onLoad={(e) => getImgSize(e)} src={image} alt='' useMap="#waldo-map" />
             <map name="waldo-map">
                 {areas}
             </map>
             {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
-            {showButton && <StartButton onClick={buttonClick}>Start</StartButton>}
+            {showButton && <Button onClick={buttonClick}>Start</Button>}
             
             {showScore && 
             <ScoreContainer>
