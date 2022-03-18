@@ -126,7 +126,7 @@ function App() {
       setShowMenu(showMenu ? false : true);
 
     } else {
-      setIsGameStart(true);
+      setShowMenu(false);
     }
   }
   const storeLocation = (e) => {
@@ -167,10 +167,20 @@ function App() {
     setTimeout(() => setShowMsg(false), 2000);
   }
 
+  const toggleIsGameStart = () => {
+    setIsGameStart(true);
+  }
+
+  const resetGame = () => {
+    setIsGameStart(false);
+    setCorrectSelections(0);
+    console.log(isGameStart);
+  }
+
   return (
     <StyledMain>
       <StyledHeader>
-        <StyledLink to='/' >
+        <StyledLink onClick={resetGame} to='/' >
           <StyledH1>Where's Waldo?</StyledH1>
         </StyledLink>
       </StyledHeader>
@@ -188,6 +198,8 @@ function App() {
           showMsg={showMsg}
           isCorrect={isCorrect}
           getImgSize={getImgSize}
+          toggleIsGameStart={toggleIsGameStart}
+          isGameStart={isGameStart}
           />} />
       </Routes>
       <footer>

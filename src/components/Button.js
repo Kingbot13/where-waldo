@@ -14,9 +14,6 @@ import styled from 'styled-components';
     &:hover {
         border-color: red;
         color: red;
-        /* height: 4.5rem;
-        width: 9rem;
-        font-size: 30px; */
     }
     transition: border-color 1s, color 1s;
 `

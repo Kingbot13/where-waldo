@@ -8,14 +8,19 @@ const StyledDiv = styled.div`
     top: 50%;
     transform: translate(-50%, -50%); */
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: 10rem;
+
 
 `
 
-const Score = ({time, handleChange, value, submitScore}) => {
+const Score = ({time, handleChange, value, submitScore, showForm}) => {
     return (
         <StyledDiv>
             Time: {time} seconds!
-            <Form onChange={handleChange} value={value} onClick={submitScore} />
+            {showForm && <Form onChange={handleChange} value={value} onClick={submitScore} />}
         </StyledDiv>
     )
 }

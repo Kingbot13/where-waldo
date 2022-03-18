@@ -18,6 +18,40 @@ const ScoreContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+    min-width: 30vw;
+    border-radius: 10px;
+    box-shadow: 0 1px 15px 0 black;
+
+    & button:hover {
+        border-color: red;
+        color: red;
+
+    }
+    
+    & button {
+        height: 3rem;
+        width: 6rem;
+        border: 2px solid #cacaca;
+        transition: border-color 1s, color 1s;
+        background-color: #fff;
+
+    }
+
+    & form input:focus {
+        outline-color: #599FBD;
+    }
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 70%;
+        margin: auto;
+    }
 `
 
 
@@ -37,9 +71,12 @@ const GameLevel = ({
     characterLocation, 
     showMsg, 
     isCorrect,
-    getImgSize
+    getImgSize,
+    toggleIsGameStart,
+    isGameStart,
 }) => {
     const [showButton, setShowButton] = React.useState(true);
+    const [showForm, setShowForm] =React.useState(true);
     const [seconds, setSeconds] = React.useState(0);
     const [showScore, setShowScore] = React.useState(false);
     const [leaderboard, setLeaderboard] = React.useState([]);
@@ -50,6 +87,7 @@ const GameLevel = ({
 
     const buttonClick = () => {
         setShowButton(!showButton);
+        toggleIsGameStart();
     }
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -58,12 +96,14 @@ const GameLevel = ({
     // keep track of player's time
     React.useEffect(() => {
         let interval;
-        if (!showButton && correctSelections < 4) {
+        if (!showButton && correctSelections < 4 && isGameStart) {
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
             }, 1000);
         } else if (correctSelections === 4 || (showButton && seconds !== 0)) {
             setShowScore(true);
+            clearInterval(interval);
+        } else {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
@@ -75,12 +115,12 @@ const GameLevel = ({
 
     React.useEffect(() => {
         setCopyCharacterLocations([...characterLocation]);
-        console.log(copyCharacterLocations);
+        // console.log(copyCharacterLocations);
         
     },[characterLocation]);
 
     const areas = copyCharacterLocations.map((item) => {
-        console.log(item);
+        // console.log(item);
         return <area key={item.name} onClick={(e) => storeLocation(e)} coords={item.coords} shape='rect' alt={item.name} />
     });
 
@@ -91,6 +131,7 @@ const GameLevel = ({
         addHighScore();
         setShowLeaderboard(true);
         e.target.removeEventListener('click', submitScore);
+        setShowForm(false);
     }
 
     const addHighScore = async () => {
@@ -122,12 +163,12 @@ const GameLevel = ({
             <map name="waldo-map">
                 {areas}
             </map>
-            {show && <DropMenu top={position.top} left={position.left} validate={validate} />}
+            {show && !showButton && <DropMenu top={position.top} left={position.left} validate={validate} />}
             {showButton && <Button onClick={buttonClick}>Start</Button>}
             
             {showScore && 
             <ScoreContainer>
-                <Score time={seconds} handleChange={handleChange} value={value} submitScore={submitScore} />
+                <Score time={seconds} showForm={showForm} handleChange={handleChange} value={value} submitScore={submitScore} />
                 {showLeaderboard && <Leaderboard highScores={leaderboard} />}
             </ScoreContainer>}
         </StyledDiv>
