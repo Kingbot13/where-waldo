@@ -12,6 +12,9 @@ const StyledDiv = styled.div`
     flex-direction: column;
     margin: auto;
     height: 10rem;
+    & p {
+        font-size: 20px;
+    }
 
 
 `
@@ -19,7 +22,7 @@ const StyledDiv = styled.div`
 const Score = ({time, handleChange, value, submitScore, showForm}) => {
     return (
         <StyledDiv>
-            Time: {time} seconds!
+            <p>Time: {time} seconds!</p>
             {showForm && <Form onChange={handleChange} value={value} onClick={submitScore} />}
         </StyledDiv>
     )
