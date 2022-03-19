@@ -11,9 +11,10 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     margin: auto;
-    height: 10rem;
+    max-height: 10rem;
     & p {
-        font-size: 20px;
+        font-size: 30px;
+        font-weight: bold;
     }
 
 

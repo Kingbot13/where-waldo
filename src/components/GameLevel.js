@@ -24,6 +24,7 @@ const ScoreContainer = styled.div`
     min-width: 30vw;
     border-radius: 10px;
     box-shadow: 0 1px 15px 0 black;
+    align-items: center;
 
     & button:hover {
         border-color: red;
@@ -52,6 +53,15 @@ const ScoreContainer = styled.div`
         height: 70%;
         margin: auto;
     }
+    /* leaderboard */
+    & ol {
+        min-height: 75vh;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
 `
 
 

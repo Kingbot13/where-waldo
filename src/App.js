@@ -117,7 +117,7 @@ function App() {
   }, [mainImg, imgDimensions]);
   // toggle dropdown menu after game starts
   const handleImgClick = (e) => {
-    if (isGameStart) {
+    if (isGameStart && correctSelections !== 4) {
       const rect = e.target.getBoundingClientRect();
       // mouse position
       const x = Math.round(e.clientX - rect.left);
