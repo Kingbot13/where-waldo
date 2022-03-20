@@ -20,11 +20,11 @@ const StyledDiv = styled.div`
 
 `
 
-const Score = ({time, handleChange, value, submitScore, showForm}) => {
+const Score = ({time, handleChange, value, submitScore, showForm, leaderboard}) => {
     return (
         <StyledDiv>
             <p>Time: {time} seconds!</p>
-            {showForm && <Form onChange={handleChange} value={value} onClick={submitScore} />}
+            {showForm && leaderboard !==10 && <Form onChange={handleChange} value={value} onClick={submitScore} />}
         </StyledDiv>
     )
 }

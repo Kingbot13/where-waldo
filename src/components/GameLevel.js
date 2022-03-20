@@ -178,7 +178,7 @@ const GameLevel = ({
             
             {showScore && 
             <ScoreContainer>
-                <Score time={seconds} showForm={showForm} handleChange={handleChange} value={value} submitScore={submitScore} />
+                <Score time={seconds} leaderboard={leaderboard} showForm={showForm} handleChange={handleChange} value={value} submitScore={submitScore} />
                 {(showLeaderboard || leaderboard.length === 10) && <Leaderboard highScores={leaderboard} />}
             </ScoreContainer>}
         </StyledDiv>
