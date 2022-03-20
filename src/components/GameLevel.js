@@ -4,7 +4,7 @@ import Score from "./Score";
 import Leaderboard from './Leaderboard';
 import GameMsg from "./GameMsg";
 import styled from "styled-components";
-import {collection, addDoc, getFirestore, getDocs} from "firebase/firestore";
+import {collection, addDoc, getFirestore, getDocs, deleteDoc, doc} from "firebase/firestore";
 import { Button } from "./Button";
 
 const StyledDiv = styled.div`
@@ -138,10 +138,16 @@ const GameLevel = ({
     // add highscore to leaderboard collection in database
     const submitScore = (e) => {
         e.preventDefault();
-        addHighScore();
-        setShowLeaderboard(true);
-        e.target.removeEventListener('click', submitScore);
-        setShowForm(false);
+        const sortedScores = leaderboard.sort((a, b) => a.time - b.time);
+        if (leaderboard.length === 10 && seconds < sortedScores[sortedScores.length - 1]) {
+            updateHighScore();
+        } else {
+            addHighScore();
+            setShowLeaderboard(true);
+            e.target.removeEventListener('click', submitScore);
+            setShowForm(false);
+
+        }
     }
 
     const addHighScore = async () => {
@@ -153,6 +159,19 @@ const GameLevel = ({
             console.log(docRef.id);
         } catch(err) {
             console.error('could not save data', err);
+        }
+    }
+
+    const updateHighScore = async () => {
+        try {
+            const sortedScores = leaderboard.sort((a, b) => a.time - b.time);
+            const lowestScore = sortedScores[sortedScores.length - 1];
+            await deleteDoc(doc(getFirestore(), 'leaderboard', lowestScore));
+            addHighScore();
+            setShowLeaderboard(true);
+
+        } catch(err) {
+            console.error(err);
         }
     }
 
