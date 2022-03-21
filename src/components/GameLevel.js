@@ -132,7 +132,7 @@ const GameLevel = ({
     // get leaderboard from firestore
     React.useEffect(() => {
         getLeaderboard();
-    },[]);
+    },[showLeaderboard]);
 
     React.useEffect(() => {
         setCopyCharacterLocations([...characterLocation]);
