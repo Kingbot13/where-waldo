@@ -11,6 +11,7 @@ import styled from 'styled-components';
     border: 2px solid #cacaca;
     /* border-radius: 50px; */
     font-size: 25px;
+    z-index: 3;
     &:hover {
         border-color: red;
         color: red;

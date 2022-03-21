@@ -12,6 +12,17 @@ const StyledDiv = styled.div`
    
 `
 
+const Cover = styled.div`
+    background-color: rgba(0, 0, 0, 0.98);
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 const ScoreContainer = styled.div`
     position: absolute;
     top: 50%;
@@ -189,6 +200,7 @@ const GameLevel = ({
         <StyledDiv onClick={(e)=> imageClick(e)} >
             <GameMsg show={showMsg} isCorrect={isCorrect} />
             <MainImg onLoad={(e) => getImgSize(e)} src={image} alt='' useMap="#waldo-map" />
+            {!isGameStart && <Cover ></Cover>}
             <map name="waldo-map">
                 {areas}
             </map>
@@ -200,6 +212,7 @@ const GameLevel = ({
                 <Score time={seconds} leaderboard={leaderboard} showForm={showForm} handleChange={handleChange} value={value} submitScore={submitScore} />
                 {(showLeaderboard || leaderboard.length === 10) && <Leaderboard highScores={leaderboard} />}
             </ScoreContainer>}
+            
         </StyledDiv>
     )
 }
