@@ -132,7 +132,7 @@ const GameLevel = ({
     // get leaderboard from firestore
     React.useEffect(() => {
         getLeaderboard();
-    },[showLeaderboard]);
+    },[showLeaderboard, showForm]);
 
     React.useEffect(() => {
         setCopyCharacterLocations([...characterLocation]);
@@ -149,9 +149,11 @@ const GameLevel = ({
     // add highscore to leaderboard collection in database
     const submitScore = (e) => {
         e.preventDefault();
-        const sortedScores = leaderboard.sort((a, b) => a.time - b.time);
-        if (leaderboard.length === 10 && seconds < sortedScores[sortedScores.length - 1]) {
+        const sortedScores = leaderboard.sort((a, b) => a.data.time - b.data.time);
+
+        if (leaderboard.length >= 10 && seconds < sortedScores[sortedScores.length - 1].data.time) {
             updateHighScore();
+            setShowForm(false);
         } else {
             addHighScore();
             setShowLeaderboard(true);
@@ -177,7 +179,9 @@ const GameLevel = ({
         try {
             const sortedScores = leaderboard.sort((a, b) => a.time - b.time);
             const lowestScore = sortedScores[sortedScores.length - 1];
-            await deleteDoc(doc(getFirestore(), 'leaderboard', lowestScore));
+            console.log(lowestScore);
+
+            await deleteDoc(doc(getFirestore(), 'leaderboard', lowestScore.id));
             addHighScore();
             setShowLeaderboard(true);
 
@@ -210,7 +214,7 @@ const GameLevel = ({
             {showScore && 
             <ScoreContainer>
                 <Score time={seconds} leaderboard={leaderboard} showForm={showForm} handleChange={handleChange} value={value} submitScore={submitScore} />
-                {(showLeaderboard || leaderboard.length === 10) && <Leaderboard highScores={leaderboard} />}
+                {(showLeaderboard || (leaderboard.length === 10 && !leaderboard.find(item => item.data.time > seconds))) && <Leaderboard highScores={leaderboard} />}
             </ScoreContainer>}
             
         </StyledDiv>

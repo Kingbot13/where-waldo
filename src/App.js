@@ -89,7 +89,7 @@ function App() {
   })
   // dynamically set coordinates to use with area elements
   const setCoords = () => {
-    console.log("img height", imgDimensions.height, "img width", imgDimensions.width);
+    // console.log("img height", imgDimensions.height, "img width", imgDimensions.width);
     characterLocation.map((item) => {
       const arr = [];
       for (let i = 0; i < item.coordPercentage.length; i++) {
@@ -101,7 +101,7 @@ function App() {
       const newCharacterLocation = [...characterLocation];
       const index = characterLocation.findIndex(a => item.name === a.name);
       newCharacterLocation[index].coords = arr.join();
-      console.log(newCharacterLocation);
+      // console.log(newCharacterLocation);
       return setCharacterLocation(newCharacterLocation);
     });
   }
@@ -174,7 +174,7 @@ function App() {
   const resetGame = () => {
     setIsGameStart(false);
     setCorrectSelections(0);
-    console.log(isGameStart);
+    // console.log(isGameStart);
   }
 
   return (

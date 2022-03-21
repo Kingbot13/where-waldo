@@ -24,7 +24,7 @@ const Score = ({time, handleChange, value, submitScore, showForm, leaderboard}) 
     return (
         <StyledDiv>
             <p>Time: {time} seconds!</p>
-            {showForm && (leaderboard !==10 || leaderboard.find(item => item > time)) && <Form onChange={handleChange} value={value} onClick={submitScore} />}
+            {showForm && (leaderboard !==10 || leaderboard.find(item => item.data.time > time)) && <Form onChange={handleChange} value={value} onClick={submitScore} />}
         </StyledDiv>
     )
 }
