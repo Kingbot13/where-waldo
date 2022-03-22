@@ -14,6 +14,7 @@ const StyledDiv = styled.div`
     padding: 1rem 2rem;
     visibility: ${props => props.show ? "visable" : "hidden"};
     transition: visibility 0.5s;
+    color: #fff;
 `
 
 const GameMsg = ({show, isCorrect}) => {

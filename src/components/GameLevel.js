@@ -64,6 +64,11 @@ const ScoreContainer = styled.div`
         height: 70%;
         margin: auto;
     }
+
+    & form button, label, input {
+        margin-top: 1rem;
+    }
+
     /* leaderboard */
     & ol {
         min-height: 75vh;
